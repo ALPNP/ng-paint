@@ -17,11 +17,14 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "app",
+      "prefix": "ngp",
       "styles": [
-        "styles.css"
+        "assets/scss/styles.scss"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/svg.js/dist/svg.min.js",
+        "../node_modules/svg.draggable.js/dist/svg.draggable.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
