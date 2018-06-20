@@ -8,15 +8,15 @@ export class SvgLayoutService {
 
   drawingElements: any[] = [];
   drawingStorageElements: any[] = [];
-  canvasSize: any = {width: '100%', height: 400};
+  canvasSize: any = {width: 400, height: 400};
 
   constructor() { }
 
-  getPicture() {
+  getPicture(): Observable {
     return this.picture.asObservable();
   }
 
-  clearPicture() {
+  clearPicture(): void {
     this.clearDrawingElements();
     this.picture.next();
   }
@@ -25,12 +25,16 @@ export class SvgLayoutService {
     return this.canvasSize;
   }
 
-  addDrawingElement(element) {
+  addDrawingElement(element): void {
     this.drawingElements.push(element.drawingElement);
     this.drawingStorageElements.push(element.drawingStorageElement);
   }
 
-  clearDrawingElements() {
+  getDrawingElements(): {} {
+    return {drawingElements: this.drawingElements, drawingStorageElements: this.drawingStorageElements};
+  }
+
+  clearDrawingElements(): void {
     this.drawingElements = [];
     this.drawingStorageElements = [];
   }

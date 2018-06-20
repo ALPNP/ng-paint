@@ -16,6 +16,5 @@ export class MainPanelComponent implements OnInit {
 
   clearPicture(e) {
     this.sls.clearPicture();
-    console.log(e);
   }
 }

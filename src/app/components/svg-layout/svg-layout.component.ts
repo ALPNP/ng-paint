@@ -27,12 +27,35 @@ export class SvgLayoutComponent implements OnInit, OnDestroy {
   svgInit(startInit?) {
     if (startInit) {
       this.draw = SVG('canvas').size(this.sls.getCanvasSize().width, this.sls.getCanvasSize().height);
+      this.setEvents();
     } else {
       this.draw.clear();
     }
 
-    const background = this.draw.rect('100%', 400).fill('#FFFFFF');
-    background.on('click', this.drawElement, this);
+    this.draw.rect(400, 400).fill('#FFFFFF');
+  }
+
+  setEvents() {
+    this.draw.on('mousedown', (e) => {
+      this.drawElement(e);
+      this.draw.on('mousemove', this.drawElement, this);
+    });
+
+    this.draw.on('mouseup', (e) => {
+      this.draw.off('mousemove', this.drawElement);
+    });
+
+    this.draw.on('mouseout', (e) => {
+      if (e.relatedTarget === null) {
+        this.draw.off('mousemove');
+      }
+
+      if (e.relatedTarget) {
+        if ((e.relatedTarget.id && e.relatedTarget.id.indexOf('Svg') === -1) && (e.relatedTarget.id && e.relatedTarget.id !== 'canvas')) {
+          this.draw.off('mousemove');
+        }
+      }
+    });
   }
 
   drawElement(e) {
