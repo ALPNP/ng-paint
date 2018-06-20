@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {SvgLayoutService} from "./services/svg-layout/svg-layout.service";
 
 @Component({
   selector: 'app-root',
@@ -6,4 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  constructor(private sls: SvgLayoutService) {
+    document.addEventListener('mouseup', () => {sls.offDocumentMouseUpEvent()});
+  }
 }

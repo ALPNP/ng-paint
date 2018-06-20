@@ -19,7 +19,8 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "ngp",
       "styles": [
-        "assets/scss/styles.scss"
+        "assets/scss/styles.scss",
+        "../node_modules/font-awesome/scss/font-awesome.scss"
       ],
       "scripts": [
         "../node_modules/svg.js/dist/svg.min.js",

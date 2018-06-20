@@ -1,0 +1,12 @@
+.left-toolbar-container {
+  width: 100%;
+  height: 500px;
+
+  &:before {
+    content: '';
+  }
+
+  &:after {
+    content: '';
+  }
+}

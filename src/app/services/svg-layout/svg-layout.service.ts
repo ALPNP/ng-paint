@@ -5,32 +5,46 @@ import {Subject} from 'rxjs/Subject';
 @Injectable()
 export class SvgLayoutService {
   private picture = new Subject<any>();
+  private documentMouseUpEvent = new Subject<any>();
 
   drawingElements: any[] = [];
   drawingStorageElements: any[] = [];
-  canvasSize: any = {width: '100%', height: 400};
+  canvasSize: any = {width: 500, height: 500};
 
-  constructor() { }
+  constructor() {
+  }
 
-  getPicture() {
+  getPicture(): Observable<Text | null> {
     return this.picture.asObservable();
   }
 
-  clearPicture() {
+  clearPicture(): void {
     this.clearDrawingElements();
     this.picture.next();
+  }
+
+  getDocumentMouseUpEvent(): Observable<null> {
+    return this.documentMouseUpEvent.asObservable();
+  }
+
+  offDocumentMouseUpEvent(): void {
+    this.documentMouseUpEvent.next();
   }
 
   getCanvasSize() {
     return this.canvasSize;
   }
 
-  addDrawingElement(element) {
+  addDrawingElement(element): void {
     this.drawingElements.push(element.drawingElement);
     this.drawingStorageElements.push(element.drawingStorageElement);
   }
 
-  clearDrawingElements() {
+  getDrawingElements(): {} {
+    return {drawingElements: this.drawingElements, drawingStorageElements: this.drawingStorageElements};
+  }
+
+  clearDrawingElements(): void {
     this.drawingElements = [];
     this.drawingStorageElements = [];
   }
