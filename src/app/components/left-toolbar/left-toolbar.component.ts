@@ -12,4 +12,8 @@ export class LeftToolbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  selectDrawTool(e) {
+    console.log(e);
+  }
+
 }

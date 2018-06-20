@@ -40,8 +40,16 @@ export class SvgLayoutComponent implements OnInit, OnDestroy {
   setEvents() {
     this.draw.on('mousedown', (e) => {
       e.stopPropagation();
-      this.drawElement(e);
-      this.draw.on('mousemove', this.drawElement, this);
+      if (e.which === 1) {
+        this.drawElement(e);
+        this.draw.on('mousemove', this.drawElement, this);
+      }
+    });
+
+    this.draw.on('contextmenu', (e) => {
+      e.stopPropagation();
+      console.log('contextmenu');
+      return false;
     });
 
     this.draw.on('mouseup', (e) => {
