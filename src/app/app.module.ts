@@ -5,7 +5,7 @@ import {MainPanelComponent} from './components/main-panel/main-panel.component';
 import {SvgLayoutComponent} from './components/svg-layout/svg-layout.component';
 import {LeftToolbarComponent} from './components/left-toolbar/left-toolbar.component';
 import {SvgLayoutService} from "./services/svg-layout/svg-layout.service";
-
+import {AngularFontAwesomeModule} from "angular-font-awesome";
 
 @NgModule({
   declarations: [
@@ -15,7 +15,8 @@ import {SvgLayoutService} from "./services/svg-layout/svg-layout.service";
     LeftToolbarComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AngularFontAwesomeModule
   ],
   providers: [
     SvgLayoutService

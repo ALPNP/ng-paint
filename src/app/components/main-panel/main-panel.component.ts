@@ -14,7 +14,7 @@ export class MainPanelComponent implements OnInit {
   ngOnInit() {
   }
 
-  clearPicture(e) {
+  clearPicture() {
     this.sls.clearPicture();
   }
 }

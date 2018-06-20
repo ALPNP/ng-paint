@@ -10,10 +10,12 @@ declare const SVG:any;
 })
 export class SvgLayoutComponent implements OnInit, OnDestroy {
   clearPictureSubscription: Subscription;
+  offDocumentMouseUpEvent: Subscription;
   draw = null;
 
   constructor(private sls: SvgLayoutService) {
     this.clearPictureSubscription = this.sls.getPicture().subscribe(() => {this.svgInit()});
+    this.offDocumentMouseUpEvent = this.sls.getDocumentMouseUpEvent().subscribe(() => {this.mouseMoveOff()});
   }
 
   ngOnInit() {
@@ -32,30 +34,37 @@ export class SvgLayoutComponent implements OnInit, OnDestroy {
       this.draw.clear();
     }
 
-    this.draw.rect(400, 400).fill('#FFFFFF');
+    this.draw.rect(this.sls.getCanvasSize().width, this.sls.getCanvasSize().height).fill('#FFFFFF');
   }
 
   setEvents() {
     this.draw.on('mousedown', (e) => {
+      e.stopPropagation();
       this.drawElement(e);
       this.draw.on('mousemove', this.drawElement, this);
     });
 
     this.draw.on('mouseup', (e) => {
+      e.stopPropagation();
       this.draw.off('mousemove', this.drawElement);
     });
 
     this.draw.on('mouseout', (e) => {
+      e.stopPropagation();
       if (e.relatedTarget === null) {
-        this.draw.off('mousemove');
+        this.mouseMoveOff();
       }
 
       if (e.relatedTarget) {
         if ((e.relatedTarget.id && e.relatedTarget.id.indexOf('Svg') === -1) && (e.relatedTarget.id && e.relatedTarget.id !== 'canvas')) {
-          this.draw.off('mousemove');
+          this.mouseMoveOff();
         }
       }
     });
+  }
+
+  mouseMoveOff() {
+    this.draw.off('mousemove');
   }
 
   drawElement(e) {
