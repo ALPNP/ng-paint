@@ -5,14 +5,14 @@
             [attr.data-drawtoolid]="1"
             [ngClass]="{'active': selectedDrawToolId === 1}"
             (click)="selectDrawTool($event)">
-      <fa name="pencil" size="2x"></fa>
+      <div id="circle-draw-tool"></div>
     </button>
     <button type="button"
             class="draw-tool-button shadow animate green"
             [attr.data-drawtoolid]="2"
             [ngClass]="{'active': selectedDrawToolId === 2}"
             (click)="selectDrawTool($event)">
-      <fa name="paint-brush" size="2x"></fa>
+      <div id="rect-draw-tool"></div>
     </button>
     <div class="left-toolbar-separator"></div>
     <div class="left-toolbar-separator"></div>
@@ -32,6 +32,6 @@
     </button>
   </div>
   <div class="left-toolbar-draw-options">
-
+    <ngp-left-toolbar-draw-options></ngp-left-toolbar-draw-options>
   </div>
 </div>

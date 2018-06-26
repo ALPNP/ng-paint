@@ -1,13 +1,14 @@
 import {Component, OnInit} from '@angular/core';
+declare const SVG:any;
 
 const drawTools: any = {
   1: {
-    name: 'pencil',
+    name: 'rect',
     id: 1,
     pixels: 1
   },
   2: {
-    name: 'brush',
+    name: 'circle',
     id: 2,
     pixels: 1
   },
@@ -30,10 +31,19 @@ const drawTools: any = {
 })
 export class LeftToolbarComponent implements OnInit {
   selectedDrawToolId: number = 1;
+  rectDrawTool = null;
+  circleDrawTool = null;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+    this.svgInit();
+  }
+
+  svgInit() {
+    this.rectDrawTool = SVG('rect-draw-tool').size(20, 20).rect(20, 20).fill('#B34EE9');
+    this.circleDrawTool = SVG('circle-draw-tool').size(20, 20).circle(20).fill('#B34EE9');
   }
 
   selectDrawTool(e) {
