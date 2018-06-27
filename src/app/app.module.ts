@@ -6,17 +6,21 @@ import {SvgLayoutComponent} from './components/svg-layout/svg-layout.component';
 import {LeftToolbarComponent} from './components/left-toolbar/left-toolbar.component';
 import {SvgLayoutService} from "./services/svg-layout/svg-layout.service";
 import {AngularFontAwesomeModule} from "angular-font-awesome";
+import { LeftToolbarDrawOptionsComponent } from './components/left-toolbar-draw-options/left-toolbar-draw-options.component';
+import {ColorPickerModule} from "ngx-color-picker";
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPanelComponent,
     SvgLayoutComponent,
-    LeftToolbarComponent
+    LeftToolbarComponent,
+    LeftToolbarDrawOptionsComponent
   ],
   imports: [
     BrowserModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    ColorPickerModule
   ],
   providers: [
     SvgLayoutService

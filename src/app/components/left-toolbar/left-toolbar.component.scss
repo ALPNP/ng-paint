@@ -9,4 +9,16 @@
   &:after {
     content: '';
   }
+
+  .left-toolbar-draw-tools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 3px;
+
+    .left-toolbar-separator {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      border-top: 1px solid black;
+    }
+  }
 }
