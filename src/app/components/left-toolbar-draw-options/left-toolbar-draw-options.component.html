@@ -3,7 +3,19 @@
   <div class="left-toolbar-draw-options-color">
     <span>
       <label>Цвет:</label>
-      <input [(colorPicker)]="currentColor" [style.background]="currentColor"/>
+      <input class="draw-tool-color-picker"
+             [(colorPicker)]="sls.currentDrawColor"
+             (colorPickerChange)="drawingToolExampleElement()"
+             [style.background]="sls.currentDrawColor"/>
     </span>
+    <span>
+      <label>Размер: </label>{{selectedSize}}
+      <input class="draw-tool-size-picker"
+             type="range"
+             [min]="5"
+             [max]="30"
+             (input)="drawToolSizePickerChanged($event)">
+    </span>
+    <span id="draw-tool-example-element"></span>
   </div>
 </div>

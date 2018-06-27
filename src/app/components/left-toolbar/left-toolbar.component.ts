@@ -1,28 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {SvgLayoutService} from "../../services/svg-layout/svg-layout.service";
 declare const SVG:any;
-
-const drawTools: any = {
-  1: {
-    name: 'rect',
-    id: 1,
-    pixels: 1
-  },
-  2: {
-    name: 'circle',
-    id: 2,
-    pixels: 1
-  },
-  3: {
-    name: 'arm',
-    id: 3,
-    pixels: null
-  },
-  4: {
-    name: 'eraser',
-    id: 4,
-    pixels: 1
-  }
-};
 
 @Component({
   selector: 'ngp-left-toolbar',
@@ -30,11 +8,11 @@ const drawTools: any = {
   styleUrls: ['left-toolbar.component.scss']
 })
 export class LeftToolbarComponent implements OnInit {
-  selectedDrawToolId: number = 1;
-  rectDrawTool = null;
-  circleDrawTool = null;
+  strokeProps: any = {color: 'white', opacity: 1, width: 1};
+  circleDrawToolLayout = null;
+  rectDrawToolLayout = null;
 
-  constructor() {
+  constructor(private sls: SvgLayoutService) {
   }
 
   ngOnInit() {
@@ -42,15 +20,29 @@ export class LeftToolbarComponent implements OnInit {
   }
 
   svgInit() {
-    this.rectDrawTool = SVG('rect-draw-tool').size(20, 20).rect(20, 20).fill('#B34EE9');
-    this.circleDrawTool = SVG('circle-draw-tool').size(20, 20).circle(20).fill('#B34EE9');
+    this.circleDrawToolLayout = SVG('circle-draw-tool')
+      .size(20, 20)
+      .circle(20)
+      .fill(this.sls.currentDrawColor)
+      .stroke(this.strokeProps);
+
+    this.rectDrawToolLayout = SVG('rect-draw-tool')
+      .size(20, 20)
+      .rect(20, 20)
+      .fill(this.sls.currentDrawColor)
+      .stroke(this.strokeProps);
   }
 
   selectDrawTool(e) {
     let drawToolId: number = parseInt(e.currentTarget.getAttribute('data-drawtoolid'));
-    if (this.selectedDrawToolId !== drawToolId) {
-      this.selectedDrawToolId = drawToolId;
+    if (this.sls.getCurrentDrawToolId() !== drawToolId) {
+      this.sls.setCurrentDrawToolId(drawToolId);
     }
+  }
+
+  changedDrawColor(e) {
+    this.circleDrawToolLayout.fill(e);
+    this.rectDrawToolLayout.fill(e);
   }
 
 }

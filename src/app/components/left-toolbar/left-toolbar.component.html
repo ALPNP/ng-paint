@@ -3,14 +3,14 @@
     <button type="button"
             class="draw-tool-button shadow animate green"
             [attr.data-drawtoolid]="1"
-            [ngClass]="{'active': selectedDrawToolId === 1}"
+            [ngClass]="{'active': sls.getCurrentDrawToolId() === 1}"
             (click)="selectDrawTool($event)">
       <div id="circle-draw-tool"></div>
     </button>
     <button type="button"
             class="draw-tool-button shadow animate green"
             [attr.data-drawtoolid]="2"
-            [ngClass]="{'active': selectedDrawToolId === 2}"
+            [ngClass]="{'active': sls.getCurrentDrawToolId() === 2}"
             (click)="selectDrawTool($event)">
       <div id="rect-draw-tool"></div>
     </button>
@@ -19,19 +19,19 @@
     <button type="button"
             class="draw-tool-button shadow animate green"
             [attr.data-drawtoolid]="3"
-            [ngClass]="{'active': selectedDrawToolId === 3}"
+            [ngClass]="{'active': sls.getCurrentDrawToolId() === 3}"
             (click)="selectDrawTool($event)">
       <fa name="hand-paper-o" size="2x"></fa>
     </button>
     <button type="button"
             class="draw-tool-button shadow animate green"
             [attr.data-drawtoolid]="4"
-            [ngClass]="{'active': selectedDrawToolId === 4}"
+            [ngClass]="{'active': sls.getCurrentDrawToolId() === 4}"
             (click)="selectDrawTool($event)">
       <fa name="eraser" size="2x"></fa>
     </button>
   </div>
   <div class="left-toolbar-draw-options">
-    <ngp-left-toolbar-draw-options></ngp-left-toolbar-draw-options>
+    <ngp-left-toolbar-draw-options (changedDrawColor)="changedDrawColor($event)"></ngp-left-toolbar-draw-options>
   </div>
 </div>
