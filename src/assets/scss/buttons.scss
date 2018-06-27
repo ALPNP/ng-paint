@@ -1,10 +1,12 @@
+@import "theme";
+
 .animate {
   transition: all 0.1s;
 }
 
 .draw-tool-button {
-  border-radius: 5px;
-  color: #FFF;
+  border-radius: $btnBorderRadius;
+  color: $white;
   height: 40px;
   padding-top: 5px;
   padding-left: 5px;
@@ -19,32 +21,14 @@
   }
 
   &.active {
-    background-color:	#FFA500 !important;
-    border-bottom: 3px solid #c37600 !important;
-    text-shadow: 0px -2px #734400 !important;
+    background-color:	$orange !important;
+    border-bottom: 3px solid $darkOrange !important;
+    text-shadow: 0px -2px $brown !important;
   }
 
   &.green {
-    background-color: #82BF56;
-    border-bottom: 3px solid #669644;
-    text-shadow: 0px -2px #669644;
+    background-color: $lightGreen;
+    border-bottom: 3px solid $darkGreen;
+    text-shadow: 0px -2px $darkGreen;
   }
-}
-
-.yellow {
-  background-color: #F2CF66;
-  border-bottom: 3px solid #D1B358;
-  text-shadow: 0px -2px #D1B358;
-}
-
-.blue {
-  background-color: #3498DB;
-  border-bottom: 3px solid #2980B9;
-  text-shadow: 0px -2px #2980B9;
-}
-
-.red {
-  background-color: #E74C3C;
-  border-bottom: 3px solid #BD3E31;
-  text-shadow: 0px -2px #BD3E31;
 }

@@ -77,7 +77,7 @@ export class SvgLayoutComponent implements OnInit, OnDestroy {
 
   drawElement(e) {
     let size: number = 10;
-    let color: string = '#B34EE9';
+    let color: string = this.sls.currentDrawColor;
     let moveX = (this.draw.node.clientWidth - (this.draw.node.clientWidth - e.offsetX)) - (size / 2);
     let moveY = (this.draw.node.clientHeight - (this.draw.node.clientHeight - e.offsetY)) - (size / 2);
     let drawingElement = this.draw.circle(size).fill(color).move(moveX, moveY);

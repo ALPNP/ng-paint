@@ -7,9 +7,34 @@ export class SvgLayoutService {
   private picture = new Subject<any>();
   private documentMouseUpEvent = new Subject<any>();
 
+  private currentDrawToolId: number = 1;
+  private drawTools: any = {
+    1: {
+      name: 'rect',
+      id: 1,
+      pixels: 1
+    },
+    2: {
+      name: 'circle',
+      id: 2,
+      pixels: 1
+    },
+    3: {
+      name: 'arm',
+      id: 3,
+      pixels: null
+    },
+    4: {
+      name: 'eraser',
+      id: 4,
+      pixels: 1
+    }
+  };
+
   drawingElements: any[] = [];
   drawingStorageElements: any[] = [];
   canvasSize: any = {width: 600, height: 600};
+  currentDrawColor: string = '#B34EE9';
 
   constructor() {
   }
@@ -47,5 +72,17 @@ export class SvgLayoutService {
   clearDrawingElements(): void {
     this.drawingElements = [];
     this.drawingStorageElements = [];
+  }
+
+  setCurrentDrawToolId(id: number) {
+    this.currentDrawToolId = id;
+  }
+
+  getCurrentDrawToolId(): number {
+    return this.currentDrawToolId;
+  }
+
+  resetCurrentDrawToolId(): void {
+    this.currentDrawToolId = 1;
   }
 }
