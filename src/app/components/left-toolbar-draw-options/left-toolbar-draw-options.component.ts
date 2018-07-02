@@ -10,10 +10,11 @@ declare const SVG:any;
 export class LeftToolbarDrawOptionsComponent implements OnInit, AfterViewInit {
   @Output() changedDrawColor = new EventEmitter<String>();
 
-  selectedSize: number = 10;
+  selectedSize: number;
   drawToolExampleElement: any = null;
 
   constructor(public sls: SvgLayoutService, private el: ElementRef) {
+    this.selectedSize = this.sls.currentDrawTool.getPixels();
   }
 
   ngOnInit() {
@@ -22,6 +23,13 @@ export class LeftToolbarDrawOptionsComponent implements OnInit, AfterViewInit {
       .circle(this.selectedSize)
       .fill(this.sls.currentDrawColor)
       .move((45 - this.selectedSize) / 2, (45 - this.selectedSize) / 2);
+
+    this.sls.subsCurrentDrawToolSelected().subscribe((data) => {
+      console.log(data);
+      this.selectedSize = this.sls.currentDrawTool.getPixels();
+      this.el.nativeElement.querySelector('.draw-tool-size-picker').value = this.selectedSize.toString();
+      this.drawingToolExampleElement();
+    });
   }
 
   ngAfterViewInit() {
@@ -30,6 +38,7 @@ export class LeftToolbarDrawOptionsComponent implements OnInit, AfterViewInit {
 
   drawToolSizePickerChanged(e) {
     this.selectedSize = parseInt(e.target.value);
+    this.sls.currentDrawTool.setPixels(this.selectedSize);
     this.drawingToolExampleElement();
   }
 

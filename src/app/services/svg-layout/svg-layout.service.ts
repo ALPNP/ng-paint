@@ -1,23 +1,25 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Subject} from 'rxjs/Subject';
+import {DrawTool} from "../../classes/draw-tool";
 
 @Injectable()
 export class SvgLayoutService {
   private picture = new Subject<any>();
   private documentMouseUpEvent = new Subject<any>();
+  private currentDrawToolSelected = new Subject<any>();
 
-  private currentDrawToolId: number = 1;
+  private currentDrawToolId: number = 2;
   private drawTools: any = {
     1: {
       name: 'rect',
       id: 1,
-      pixels: 1
+      pixels: 5
     },
     2: {
       name: 'circle',
       id: 2,
-      pixels: 1
+      pixels: 5
     },
     3: {
       name: 'arm',
@@ -27,9 +29,10 @@ export class SvgLayoutService {
     4: {
       name: 'eraser',
       id: 4,
-      pixels: 1
+      pixels: 5
     }
   };
+  public currentDrawTool: DrawTool = new DrawTool(this.drawTools[2]);
 
   drawingElements: any[] = [];
   drawingStorageElements: any[] = [];
@@ -37,6 +40,7 @@ export class SvgLayoutService {
   currentDrawColor: string = '#B34EE9';
 
   constructor() {
+    this.currentDrawTool = new DrawTool(this.drawTools[2]);
   }
 
   getPicture(): Observable<Text | null> {
@@ -45,6 +49,7 @@ export class SvgLayoutService {
 
   clearPicture(): void {
     this.clearDrawingElements();
+    this.resetCurrentDrawTool();
     this.picture.next();
   }
 
@@ -54,6 +59,14 @@ export class SvgLayoutService {
 
   offDocumentMouseUpEvent(): void {
     this.documentMouseUpEvent.next();
+  }
+
+  subsCurrentDrawToolSelected(): Observable<null> {
+    return this.currentDrawToolSelected.asObservable();
+  }
+
+  sendCurrentDrawToolSelected(): void {
+    this.currentDrawToolSelected.next(this.currentDrawTool);
   }
 
   getCanvasSize() {
@@ -74,15 +87,17 @@ export class SvgLayoutService {
     this.drawingStorageElements = [];
   }
 
-  setCurrentDrawToolId(id: number) {
+  setCurrentDrawTool(id: number) {
     this.currentDrawToolId = id;
+    this.currentDrawTool.set(this.drawTools[id]);
   }
 
-  getCurrentDrawToolId(): number {
+  getCurrentDrawTool(): number {
     return this.currentDrawToolId;
   }
 
-  resetCurrentDrawToolId(): void {
-    this.currentDrawToolId = 1;
+  resetCurrentDrawTool(): void {
+    this.currentDrawToolId = 2;
+    this.currentDrawTool.set(this.drawTools[2]);
   }
 }
