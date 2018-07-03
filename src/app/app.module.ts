@@ -8,6 +8,7 @@ import {SvgLayoutService} from "./services/svg-layout/svg-layout.service";
 import {AngularFontAwesomeModule} from "angular-font-awesome";
 import { LeftToolbarDrawOptionsComponent } from './components/left-toolbar-draw-options/left-toolbar-draw-options.component';
 import {ColorPickerModule} from "ngx-color-picker";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {ColorPickerModule} from "ngx-color-picker";
   imports: [
     BrowserModule,
     AngularFontAwesomeModule,
-    ColorPickerModule
+    ColorPickerModule,
+    HttpClientModule
   ],
   providers: [
     SvgLayoutService

@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Subject} from 'rxjs/Subject';
+import {HttpClient} from "@angular/common/http";
+import {HttpHeaders} from "@angular/common/http";
 
 @Injectable()
 export class SvgLayoutService {
@@ -36,7 +38,18 @@ export class SvgLayoutService {
   canvasSize: any = {width: 600, height: 600};
   currentDrawColor: string = '#B34EE9';
 
-  constructor() {
+  constructor(private http: HttpClient) {
+  }
+
+  requestPentahoRest(e): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Authorization": "Basic bHlhaDox"
+      })
+    };
+
+    console.log(e);
+    return this.http.get('http://localhost:8080/pentaho/plugin/interactiveReports/api/user/getUserName', httpOptions);
   }
 
   getPicture(): Observable<Text | null> {
