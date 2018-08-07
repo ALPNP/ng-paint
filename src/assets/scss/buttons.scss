@@ -27,8 +27,8 @@
   }
 
   &.green {
-    background-color: $lightGreen;
-    border-bottom: 3px solid $darkGreen;
-    text-shadow: 0px -2px $darkGreen;
+    background-color: $lightGrey;
+    border-bottom: 3px solid $lightGreyText;
+    text-shadow: 0px -2px $lightGreyText;
   }
 }
