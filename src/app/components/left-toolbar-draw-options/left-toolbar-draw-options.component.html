@@ -3,13 +3,13 @@
   <div class="left-toolbar-draw-options-color">
     <span>
       <label>Цвет:</label>
-      <input class="draw-tool-color-picker"
-             [(colorPicker)]="sls.currentDrawColor"
-             (colorPickerChange)="drawingToolExampleElement()"
-             [style.background]="sls.currentDrawColor"/>
+      <!--<input class="draw-tool-color-picker"-->
+             <!--[(colorPicker)]="sls.getDrawTools().getCurrentDrawToolColor()"-->
+             <!--(colorPickerChange)="drawingToolExampleElement()"-->
+             <!--[style.background]="sls.getDrawTools().getCurrentDrawToolColor()"/>-->
     </span>
     <span>
-      <label>Размер: </label>{{selectedSize}}
+      <label>Размер: </label>{{selectedSize}}px
       <input class="draw-tool-size-picker"
              type="range"
              [min]="5"
