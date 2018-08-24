@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Subject} from 'rxjs/Subject';
-import {DrawTool} from "../../classes/draw-tool";
+import {DrawTools} from "../../classes/draw-tools.class";
 
 @Injectable()
 export class SvgLayoutService {
@@ -9,38 +9,14 @@ export class SvgLayoutService {
   private documentMouseUpEvent = new Subject<any>();
   private currentDrawToolSelected = new Subject<any>();
 
-  private currentDrawToolId: number = 2;
-  private drawTools: any = {
-    1: {
-      name: 'rect',
-      id: 1,
-      pixels: 5
-    },
-    2: {
-      name: 'circle',
-      id: 2,
-      pixels: 5
-    },
-    3: {
-      name: 'arm',
-      id: 3,
-      pixels: null
-    },
-    4: {
-      name: 'eraser',
-      id: 4,
-      pixels: 5
-    }
-  };
-  public currentDrawTool: DrawTool = new DrawTool(this.drawTools[2]);
+  private drawTools: DrawTools;
 
   drawingElements: any[] = [];
   drawingStorageElements: any[] = [];
   canvasSize: any = {width: 600, height: 600};
-  currentDrawColor: string = '#B34EE9';
 
   constructor() {
-    this.currentDrawTool = new DrawTool(this.drawTools[2]);
+    this.drawTools = new DrawTools(2);
   }
 
   getPicture(): Observable<Text | null> {
@@ -66,7 +42,7 @@ export class SvgLayoutService {
   }
 
   sendCurrentDrawToolSelected(): void {
-    this.currentDrawToolSelected.next(this.currentDrawTool);
+    this.currentDrawToolSelected.next();
   }
 
   getCanvasSize() {
@@ -87,17 +63,11 @@ export class SvgLayoutService {
     this.drawingStorageElements = [];
   }
 
-  setCurrentDrawTool(id: number) {
-    this.currentDrawToolId = id;
-    this.currentDrawTool.set(this.drawTools[id]);
-  }
-
-  getCurrentDrawTool(): number {
-    return this.currentDrawToolId;
-  }
-
   resetCurrentDrawTool(): void {
-    this.currentDrawToolId = 2;
-    this.currentDrawTool.set(this.drawTools[2]);
+    this.drawTools.setCurrentDrawToolId(2);
+  }
+
+  getDrawTools(): DrawTools {
+    return this.drawTools;
   }
 }

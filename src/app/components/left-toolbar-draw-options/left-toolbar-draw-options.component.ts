@@ -1,6 +1,6 @@
 import {Component, OnInit, ElementRef, AfterViewInit, Output, EventEmitter} from '@angular/core';
 import {SvgLayoutService} from "../../services/svg-layout/svg-layout.service";
-declare const SVG:any;
+declare const SVG: any;
 
 @Component({
   selector: 'ngp-left-toolbar-draw-options',
@@ -12,23 +12,28 @@ export class LeftToolbarDrawOptionsComponent implements OnInit, AfterViewInit {
 
   selectedSize: number;
   drawToolExampleElement: any = null;
+  drawOptionsPanelVisible: boolean = true;
 
   constructor(public sls: SvgLayoutService, private el: ElementRef) {
-    this.selectedSize = this.sls.currentDrawTool.getPixels();
+    this.selectedSize = this.sls.getDrawTools().getCurrentDrawToolPixels();
   }
 
   ngOnInit() {
     this.drawToolExampleElement = SVG('draw-tool-example-element')
       .size(45, 45)
       .circle(this.selectedSize)
-      .fill(this.sls.currentDrawColor)
+      .fill(this.sls.getDrawTools().getCurrentDrawToolColor())
       .move((45 - this.selectedSize) / 2, (45 - this.selectedSize) / 2);
 
-    this.sls.subsCurrentDrawToolSelected().subscribe((data) => {
-      console.log(data);
-      this.selectedSize = this.sls.currentDrawTool.getPixels();
-      this.el.nativeElement.querySelector('.draw-tool-size-picker').value = this.selectedSize.toString();
-      this.drawingToolExampleElement();
+    this.sls.subsCurrentDrawToolSelected().subscribe(() => {
+      this.selectedSize = this.sls.getDrawTools().getCurrentDrawToolPixels();
+      if (this.sls.getDrawTools().getCurrentDrawToolId() !== this.sls.getDrawTools().getDrawToolById(3)['id']) {
+        this.drawOptionsPanelVisible = true;
+        this.el.nativeElement.querySelector('.draw-tool-size-picker').value = this.selectedSize.toString();
+        this.drawingToolExampleElement();
+      } else {
+        this.drawOptionsPanelVisible = false;
+      }
     });
   }
 
@@ -38,17 +43,16 @@ export class LeftToolbarDrawOptionsComponent implements OnInit, AfterViewInit {
 
   drawToolSizePickerChanged(e) {
     this.selectedSize = parseInt(e.target.value);
-    this.sls.currentDrawTool.setPixels(this.selectedSize);
+    this.sls.getDrawTools().setCurrentDrawToolPixels(this.selectedSize);
     this.drawingToolExampleElement();
   }
 
   drawingToolExampleElement() {
     this.drawToolExampleElement
       .size(this.selectedSize)
-      .fill(this.sls.currentDrawColor)
+      .fill(this.sls.getDrawTools().getCurrentDrawToolColor())
       .move((45 - this.selectedSize) / 2, (45 - this.selectedSize) / 2);
 
-    this.changedDrawColor.emit(this.sls.currentDrawColor);
+    this.changedDrawColor.emit(this.sls.getDrawTools().getCurrentDrawToolColor());
   }
-
 }

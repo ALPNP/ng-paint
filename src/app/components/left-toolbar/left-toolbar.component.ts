@@ -23,20 +23,20 @@ export class LeftToolbarComponent implements OnInit {
     this.circleDrawToolLayout = SVG('circle-draw-tool')
       .size(20, 20)
       .circle(20)
-      .fill(this.sls.currentDrawColor)
+      .fill(this.sls.getDrawTools().getCurrentDrawToolColor())
       .stroke(this.strokeProps);
 
     this.rectDrawToolLayout = SVG('rect-draw-tool')
       .size(20, 20)
       .rect(20, 20)
-      .fill(this.sls.currentDrawColor)
+      .fill(this.sls.getDrawTools().getCurrentDrawToolColor())
       .stroke(this.strokeProps);
   }
 
   selectDrawTool(e) {
     let drawToolId: number = parseInt(e.currentTarget.getAttribute('data-drawtoolid'));
-    if (this.sls.getCurrentDrawTool() !== drawToolId) {
-      this.sls.setCurrentDrawTool(drawToolId);
+    if (this.sls.getDrawTools().getCurrentDrawToolId() !== drawToolId) {
+      this.sls.getDrawTools().setCurrentDrawToolId(drawToolId);
       this.sls.sendCurrentDrawToolSelected();
     }
   }
