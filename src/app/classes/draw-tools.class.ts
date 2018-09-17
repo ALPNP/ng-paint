@@ -39,9 +39,10 @@ export class DrawTools {
 
   setCurrentDrawToolId(id: number): this {
     if (typeof id === 'number') {
-      this.currentDrawToolId = id;
-      return this;
+      this.currentDrawToolId = id
     }
+
+    return this;
   }
 
   // currentDrawTool get

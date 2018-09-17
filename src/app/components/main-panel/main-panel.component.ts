@@ -14,6 +14,10 @@ export class MainPanelComponent implements OnInit {
   ngOnInit() {
   }
 
+  downloadPicture() {
+    this.sls.sendDownloadPicture();
+  }
+
   clearPicture() {
     this.sls.clearPicture();
   }

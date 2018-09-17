@@ -1,14 +1,19 @@
 <div class="left-toolbar-draw-options-container">
   <p class="left-toolbar-draw-options-title">Параметры</p>
   <div class="left-toolbar-draw-options-color">
-    <span>
+    <span *ngIf="drawOptionsPanelVisible">
       <label>Цвет:</label>
-      <!--<input class="draw-tool-color-picker"-->
-             <!--[(colorPicker)]="sls.getDrawTools().getCurrentDrawToolColor()"-->
-             <!--(colorPickerChange)="drawingToolExampleElement()"-->
-             <!--[style.background]="sls.getDrawTools().getCurrentDrawToolColor()"/>-->
+      <input class="draw-tool-color-picker"
+             [(colorPicker)]="selectedColor"
+             (colorPickerChange)="drawToolColorPickerChanged($event)"
+             [style.background]="selectedColor"
+             [cpPosition]="'bottom'"
+             [cpOKButton]="true"
+             [cpDisableInput]="true"
+             [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
+             [cpAddColorButton]="false"/>
     </span>
-    <span>
+    <span *ngIf="drawOptionsPanelVisible">
       <label>Размер: </label>{{selectedSize}}px
       <input class="draw-tool-size-picker"
              type="range"
@@ -16,6 +21,6 @@
              [max]="30"
              (input)="drawToolSizePickerChanged($event)">
     </span>
-    <span id="draw-tool-example-element"></span>
+    <span *ngIf="drawOptionsPanelVisible" id="draw-tool-example-element"></span>
   </div>
 </div>
