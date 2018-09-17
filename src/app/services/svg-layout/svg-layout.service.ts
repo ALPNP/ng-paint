@@ -8,6 +8,7 @@ export class SvgLayoutService {
   private picture = new Subject<any>();
   private documentMouseUpEvent = new Subject<any>();
   private currentDrawToolSelected = new Subject<any>();
+  private downloadPicture = new Subject<any>();
 
   private drawTools: DrawTools;
 
@@ -19,14 +20,21 @@ export class SvgLayoutService {
     this.drawTools = new DrawTools(2);
   }
 
-  getPicture(): Observable<Text | null> {
+  getPicture(): Observable < Text | null > {
     return this.picture.asObservable();
   }
 
   clearPicture(): void {
     this.clearDrawingElements();
-    this.resetCurrentDrawTool();
     this.picture.next();
+  }
+
+  subsDownloadPicture(): Observable<null> {
+    return this.downloadPicture.asObservable();
+  }
+
+  sendDownloadPicture(): void {
+    this.downloadPicture.next();
   }
 
   getDocumentMouseUpEvent(): Observable<null> {
@@ -61,10 +69,6 @@ export class SvgLayoutService {
   clearDrawingElements(): void {
     this.drawingElements = [];
     this.drawingStorageElements = [];
-  }
-
-  resetCurrentDrawTool(): void {
-    this.drawTools.setCurrentDrawToolId(2);
   }
 
   getDrawTools(): DrawTools {

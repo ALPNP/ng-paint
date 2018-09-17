@@ -42,8 +42,12 @@ export class LeftToolbarComponent implements OnInit {
   }
 
   changedDrawColor(e) {
-    this.circleDrawToolLayout.fill(e);
-    this.rectDrawToolLayout.fill(e);
-  }
+    if (this.sls.getDrawTools().getCurrentDrawToolName() === 'rect') {
+      this.rectDrawToolLayout.fill(e);
+    }
 
+    if (this.sls.getDrawTools().getCurrentDrawToolName() === 'circle') {
+      this.circleDrawToolLayout.fill(e);
+    }
+  }
 }
