@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SvgLayoutService} from "../../services/svg-layout/svg-layout.service";
+import {DomService} from "../../services/dom/dom.service";
 
 @Component({
   selector: 'ngp-main-panel',
@@ -8,14 +9,14 @@ import {SvgLayoutService} from "../../services/svg-layout/svg-layout.service";
 })
 export class MainPanelComponent implements OnInit {
 
-  constructor(private sls: SvgLayoutService) {
+  constructor(private sls: SvgLayoutService, private domService: DomService) {
   }
 
   ngOnInit() {
   }
 
   downloadPicture() {
-    this.sls.sendDownloadPicture();
+    this.domService.downloadPicture();
   }
 
   clearPicture() {

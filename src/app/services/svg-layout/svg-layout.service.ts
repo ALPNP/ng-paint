@@ -8,7 +8,6 @@ export class SvgLayoutService {
   private picture = new Subject<any>();
   private documentMouseUpEvent = new Subject<any>();
   private currentDrawToolSelected = new Subject<any>();
-  private downloadPicture = new Subject<any>();
 
   private drawTools: DrawTools;
 
@@ -27,14 +26,6 @@ export class SvgLayoutService {
   clearPicture(): void {
     this.clearDrawingElements();
     this.picture.next();
-  }
-
-  subsDownloadPicture(): Observable<null> {
-    return this.downloadPicture.asObservable();
-  }
-
-  sendDownloadPicture(): void {
-    this.downloadPicture.next();
   }
 
   getDocumentMouseUpEvent(): Observable<null> {
