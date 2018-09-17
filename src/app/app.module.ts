@@ -8,6 +8,8 @@ import {SvgLayoutService} from "./services/svg-layout/svg-layout.service";
 import {AngularFontAwesomeModule} from "angular-font-awesome";
 import { LeftToolbarDrawOptionsComponent } from './components/left-toolbar-draw-options/left-toolbar-draw-options.component';
 import {ColorPickerModule} from "ngx-color-picker";
+import {ImgSaverComponent} from './components/img-saver/img-saver.component';
+import {DomService} from "./services/dom/dom.service";
 
 @NgModule({
   declarations: [
@@ -15,7 +17,11 @@ import {ColorPickerModule} from "ngx-color-picker";
     MainPanelComponent,
     SvgLayoutComponent,
     LeftToolbarComponent,
-    LeftToolbarDrawOptionsComponent
+    LeftToolbarDrawOptionsComponent,
+    ImgSaverComponent
+  ],
+  entryComponents: [
+    ImgSaverComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +29,8 @@ import {ColorPickerModule} from "ngx-color-picker";
     ColorPickerModule
   ],
   providers: [
-    SvgLayoutService
+    SvgLayoutService,
+    DomService
   ],
   bootstrap: [AppComponent]
 })

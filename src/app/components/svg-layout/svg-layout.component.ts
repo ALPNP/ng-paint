@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ElementRef} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {SvgLayoutService} from "../../services/svg-layout/svg-layout.service";
 import {Subscription} from 'rxjs/Subscription';
 declare const SVG:any;
@@ -11,13 +11,11 @@ declare const SVG:any;
 export class SvgLayoutComponent implements OnInit, OnDestroy {
   clearPictureSubscription: Subscription;
   offDocumentMouseUpEvent: Subscription;
-  downloadPictureSubscription: Subscription;
   draw = null;
 
-  constructor(private sls: SvgLayoutService, private el: ElementRef) {
+  constructor(private sls: SvgLayoutService) {
     this.clearPictureSubscription = this.sls.getPicture().subscribe(() => {this.svgInit()});
     this.offDocumentMouseUpEvent = this.sls.getDocumentMouseUpEvent().subscribe(() => {this.mouseMoveOff()});
-    this.downloadPictureSubscription = this.sls.subsDownloadPicture().subscribe(() => {this.downloadPicture()})
   }
 
   ngOnInit() {
@@ -26,6 +24,7 @@ export class SvgLayoutComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.clearPictureSubscription.unsubscribe();
+    this.offDocumentMouseUpEvent.unsubscribe();
   }
 
   svgInit(startInit?) {
@@ -37,34 +36,6 @@ export class SvgLayoutComponent implements OnInit, OnDestroy {
     }
 
     this.draw.rect(this.sls.getCanvasSize().width, this.sls.getCanvasSize().height).fill('#FFFFFF');
-  }
-
-  downloadPicture() {
-    let html = this.el.nativeElement.querySelector('#canvas').parentNode.innerHTML;
-    let canvas = this.el.nativeElement.querySelector('canvas');
-    let context = canvas.getContext('2d');
-
-    canvas.setAttribute('width', this.sls.getCanvasSize().width);
-    canvas.setAttribute('height', this.sls.getCanvasSize().height);
-
-    let image = new Image();
-    image.crossOrigin = 'Anonymous';
-    image.src = 'data:image/svg+xml:base64,' + btoa(html);
-
-    console.log(image);
-    // Здесь что-то не работает, нужно разобраться !!!
-    image.onload = () => {
-      context.drawImage(image, 0, 0);
-      let canvasdata = canvas.toDataURL('image/png');
-      let a = document.createElement('a');
-      a.download = "export_" + Date.now() + ".png";
-      a.href = canvasdata;
-      document.body.appendChild(a);
-      a.click();
-      canvas.parentNode.removeChild(canvas);
-      document.body.removeChild(a);
-      console.log(a);
-    };
   }
 
   setEvents() {
