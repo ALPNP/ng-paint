@@ -8,6 +8,7 @@ import {DomService} from "../../services/dom/dom.service";
   styleUrls: ['main-panel.component.scss']
 })
 export class MainPanelComponent implements OnInit {
+  downloadButtonDisabled: boolean = false;
 
   constructor(private sls: SvgLayoutService, private domService: DomService) {
   }
@@ -16,7 +17,13 @@ export class MainPanelComponent implements OnInit {
   }
 
   downloadPicture() {
-    this.domService.downloadPicture();
+    var timeOut = 50000;
+    this.downloadButtonDisabled = !this.downloadButtonDisabled;
+    this.domService.downloadPicture(this.sls.getCanvasSize(), timeOut);
+
+    setTimeout(()=> {
+      this.downloadButtonDisabled = !this.downloadButtonDisabled;
+    }, timeOut)
   }
 
   clearPicture() {
