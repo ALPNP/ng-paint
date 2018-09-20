@@ -9,12 +9,15 @@ export class DomService {
               private injector: Injector) {
   }
 
-  downloadPicture() {
-    let html = document.body.querySelector('#canvas').innerHTML;
-    this.appendComponentToBody(ImgSaverComponent, {html: html});
+  downloadPicture(canvasSize: any, timeOut: number) {
+    let svgString = new XMLSerializer().serializeToString(document.body.querySelector('#canvas').childNodes[0]);
+    this.appendComponentToBody(ImgSaverComponent, {
+      svgString: svgString,
+      canvasSize: canvasSize
+    }, timeOut);
   }
 
-  appendComponentToBody(component: any, params?: any) {
+  appendComponentToBody(component: any, params?: any, timeOut?: number) {
     const componentRef = this.cfr.resolveComponentFactory(component).create(this.injector);
     componentRef.instance['params'] = params;
 
@@ -23,9 +26,11 @@ export class DomService {
     const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
     document.body.appendChild(domElem);
 
-    setTimeout(() => {
-      this.appRef.detachView(componentRef.hostView);
-      componentRef.destroy();
-    }, 3000);
+    if (timeOut) {
+      setTimeout(() => {
+        this.appRef.detachView(componentRef.hostView);
+        componentRef.destroy();
+      }, timeOut);
+    }
   }
 }

@@ -1,42 +1,38 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, ElementRef, AfterViewInit} from '@angular/core';
+declare const canvg: any;
+declare const saveAs: any;
 
 @Component({
   selector: 'ngp-img-saver',
   templateUrl: 'img-saver.component.html',
   styleUrls: ['img-saver.component.scss']
 })
-export class ImgSaverComponent implements OnInit {
+export class ImgSaverComponent implements OnInit, AfterViewInit {
   @Input('params') params: any;
 
-  constructor() {
+  canvas: HTMLCanvasElement;
+  canvasSize: any;
+
+  constructor(private el: ElementRef) {
   }
 
   ngOnInit() {
-    console.log(this.params);
+    this.canvasSize = this.params.canvasSize;
   }
 
-  // let canvas = this.el.nativeElement.querySelector('canvas');
-  // let context = canvas.getContext('2d');
-  //
-  // canvas.setAttribute('width', this.sls.getCanvasSize().width);
-  // canvas.setAttribute('height', this.sls.getCanvasSize().height);
-  //
-  // let image = new Image();
-  // image.crossOrigin = 'Anonymous';
-  // image.src = 'data:image/svg+xml:base64,' + btoa(html);
-  //
-  // console.log(image);
-  // Здесь что-то не работает, нужно разобраться !!!
-  // image.onload = () => {
-  //   context.drawImage(image, 0, 0);
-  //   let canvasdata = canvas.toDataURL('image/png');
-  //   let a = document.createElement('a');
-  //   a.download = "export_" + Date.now() + ".png";
-  //   a.href = canvasdata;
-  //   document.body.appendChild(a);
-  //   a.click();
-  //   canvas.parentNode.removeChild(canvas);
-  //   document.body.removeChild(a);
-  //   console.log(a);
-  // };
+  ngAfterViewInit() {
+    this.canvas = this.el.nativeElement.querySelector('#canvas-snapshot');
+    canvg(this.canvas, this.params.svgString);
+
+    let dataUrl = this.canvas.toDataURL('image/png');
+    let data = atob(dataUrl.substring('data:image/png;base64,'.length));
+    let asArray = new Uint8Array(data.length);
+
+    for (let i = 0, len = data.length; i < len; ++i) {
+      asArray[i] = data.charCodeAt(i);
+    }
+
+    let blob = new Blob([asArray.buffer], {type: 'image/png'});
+    saveAs(blob, 'export_' + Date.now() + '.png');
+  }
 }
