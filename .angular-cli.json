@@ -24,7 +24,9 @@
       ],
       "scripts": [
         "../node_modules/svg.js/dist/svg.min.js",
-        "../node_modules/svg.draggable.js/dist/svg.draggable.min.js"
+        "../node_modules/svg.draggable.js/dist/svg.draggable.min.js",
+        "../node_modules/canvg/dist/browser/canvg.min.js",
+        "../node_modules/file-saver/FileSaver.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

@@ -13,7 +13,7 @@ export class SvgLayoutService {
 
   drawingElements: any[] = [];
   drawingStorageElements: any[] = [];
-  canvasSize: any = {width: 300, height: 300};
+  canvasSize: any = {width: 600, height: 600};
 
   constructor() {
     this.drawTools = new DrawTools(2);

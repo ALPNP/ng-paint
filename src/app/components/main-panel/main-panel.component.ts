@@ -17,7 +17,7 @@ export class MainPanelComponent implements OnInit {
   }
 
   downloadPicture() {
-    var timeOut = 50000;
+    var timeOut = 5000;
     this.downloadButtonDisabled = !this.downloadButtonDisabled;
     this.domService.downloadPicture(this.sls.getCanvasSize(), timeOut);
 
