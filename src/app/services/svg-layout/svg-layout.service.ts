@@ -13,10 +13,13 @@ export class SvgLayoutService {
 
   drawingElements: any[] = [];
   drawingStorageElements: any[] = [];
-  canvasSize: any = {width: 600, height: 600};
+  canvasSize: any = {width: null, height: null};
 
   constructor() {
     this.drawTools = new DrawTools(2);
+
+    this.canvasSize.width = window.innerWidth - 110;
+    this.canvasSize.height = window.innerHeight - 42;
   }
 
   getPicture(): Observable < Text | null > {
