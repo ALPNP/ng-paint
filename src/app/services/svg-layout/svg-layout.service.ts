@@ -18,7 +18,7 @@ export class SvgLayoutService {
   constructor() {
     this.drawTools = new DrawTools(2);
 
-    this.canvasSize.width = window.innerWidth - 110;
+    this.canvasSize.width = window.innerWidth - 145;
     this.canvasSize.height = window.innerHeight - 42;
   }
 

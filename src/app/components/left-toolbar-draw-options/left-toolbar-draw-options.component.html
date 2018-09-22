@@ -1,7 +1,7 @@
 <div class="left-toolbar-draw-options-container">
   <p class="left-toolbar-draw-options-title">Параметры</p>
   <div class="left-toolbar-draw-options-color">
-    <span *ngIf="drawOptionsPanelVisible">
+    <div class="left-toolbar-draw-options-color-select" *ngIf="drawOptionsPanelVisible">
       <label>Цвет:</label>
       <input class="draw-tool-color-picker"
              [(colorPicker)]="selectedColor"
@@ -12,15 +12,15 @@
              [cpDisableInput]="true"
              [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
              [cpAddColorButton]="false"/>
-    </span>
-    <span *ngIf="drawOptionsPanelVisible">
-      <label>Размер: </label>{{selectedSize}}px
+    </div>
+    <div class="left-toolbar-draw-options-size-select" *ngIf="drawOptionsPanelVisible">
+      <label>Размер: {{selectedSize}} px</label>
       <input class="draw-tool-size-picker"
              type="range"
              [min]="5"
              [max]="30"
              (input)="drawToolSizePickerChanged($event)">
-    </span>
+    </div>
     <span *ngIf="drawOptionsPanelVisible" id="draw-tool-example-element"></span>
   </div>
 </div>
