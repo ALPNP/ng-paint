@@ -1,35 +1,44 @@
 export class DrawTools {
   private currentDrawToolId: number;
+  private previousDrawToolId: number;
 
   private drawTools: any = {
     1: {
       name: 'rect',
       id: 1,
-      size: 10,
-      color: '#B34EE9'
+      size: 15,
+      color: '#B34EE9',
+      canDraw: true
     },
     2: {
       name: 'circle',
       id: 2,
-      size: 10,
-      color: '#B34EE9'
+      size: 15,
+      color: '#B34EE9',
+      canDraw: true
     },
     3: {
       name: 'arm',
       id: 3,
       size: null,
-      color: '#B34EE9'
+      color: '#B34EE9',
+      canDraw: false
     },
     4: {
       name: 'eraser',
       id: 4,
       size: 10,
-      color: '#B34EE9'
+      color: '#B34EE9',
+      canDraw: false
     }
   };
 
   constructor(currentDrawToolId: number) {
     this.currentDrawToolId = currentDrawToolId;
+  }
+
+  currentDrawToolIsDraw(): boolean {
+    return this.drawTools[this.currentDrawToolId]['canDraw'];
   }
 
   // currentDrawToolId get set
@@ -39,7 +48,10 @@ export class DrawTools {
 
   setCurrentDrawToolId(id: number): this {
     if (typeof id === 'number') {
-      this.currentDrawToolId = id
+      this.previousDrawToolId = this.currentDrawToolId;
+      this.currentDrawToolId = id;
+    } else {
+      console.error('id not a number');
     }
 
     return this;
@@ -48,6 +60,14 @@ export class DrawTools {
   // currentDrawTool get
   getCurrentDrawTool(): any {
     return this.drawTools[this.currentDrawToolId];
+  }
+
+  getPreviousDrawToolId(): number {
+    return this.previousDrawToolId;
+  }
+
+  getDrawTools(): {} {
+    return this.drawTools;
   }
 
   // size get set

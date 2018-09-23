@@ -33,8 +33,17 @@ export class LeftToolbarComponent implements OnInit {
   selectDrawTool(e) {
     let drawToolId: number = parseInt(e.currentTarget.getAttribute('data-drawtoolid'));
     if (this.sls.getDrawTools().getCurrentDrawToolId() !== drawToolId) {
+
+      if ((this.sls.getDrawTools().getDrawTools()['3']['id'] === drawToolId)) {
+        this.sls.draggableDrawingElements(true);
+      }
+
       this.sls.getDrawTools().setCurrentDrawToolId(drawToolId);
       this.sls.sendCurrentDrawToolSelected();
+
+      if (this.sls.getDrawTools().getPreviousDrawToolId() === this.sls.getDrawTools().getDrawTools()['3']['id']) {
+        this.sls.draggableDrawingElements(false);
+      }
     }
   }
 
