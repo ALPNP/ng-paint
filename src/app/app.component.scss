@@ -9,7 +9,7 @@
 
   .grid-container {
     @extend .main-panel;
-    grid-template-columns: 95px 1fr;
+    grid-template-columns: 130px 1fr;
     grid-gap: 5px;
 
     .left-toolbar {

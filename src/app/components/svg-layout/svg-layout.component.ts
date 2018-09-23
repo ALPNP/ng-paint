@@ -11,11 +11,15 @@ declare const SVG:any;
 export class SvgLayoutComponent implements OnInit, OnDestroy {
   clearPictureSubscription: Subscription;
   offDocumentMouseUpEvent: Subscription;
+  drawEventsStatusSubscription: Subscription;
   draw = null;
 
   constructor(private sls: SvgLayoutService) {
     this.clearPictureSubscription = this.sls.getPicture().subscribe(() => {this.svgInit()});
     this.offDocumentMouseUpEvent = this.sls.getDocumentMouseUpEvent().subscribe(() => {this.mouseMoveOff()});
+    this.drawEventsStatusSubscription = this.sls.subsDrawEventsStatus().subscribe((status) => {
+      (status) ? this.removeEvents() : this.setEvents();
+    });
   }
 
   ngOnInit() {
@@ -41,16 +45,10 @@ export class SvgLayoutComponent implements OnInit, OnDestroy {
   setEvents() {
     this.draw.on('mousedown', (e) => {
       e.stopPropagation();
-      if (e.which === 1) {
+      if (e.which === 1 && this.sls.getDrawTools().currentDrawToolIsDraw()) {
         this.drawElement(e);
         this.draw.on('mousemove', this.drawElement, this);
       }
-    });
-
-    this.draw.on('contextmenu', (e) => {
-      e.stopPropagation();
-      console.log('contextmenu');
-      return false;
     });
 
     this.draw.on('mouseup', (e) => {
@@ -70,6 +68,12 @@ export class SvgLayoutComponent implements OnInit, OnDestroy {
         }
       }
     });
+  }
+
+  removeEvents() {
+    this.draw.off('mousedown');
+    this.draw.off('mouseup');
+    this.mouseMoveOff();
   }
 
   mouseMoveOff() {

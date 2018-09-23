@@ -8,15 +8,19 @@ export class SvgLayoutService {
   private picture = new Subject<any>();
   private documentMouseUpEvent = new Subject<any>();
   private currentDrawToolSelected = new Subject<any>();
+  private drawEventsStatus = new Subject<boolean>();
 
   private drawTools: DrawTools;
 
   drawingElements: any[] = [];
   drawingStorageElements: any[] = [];
-  canvasSize: any = {width: 600, height: 600};
+  canvasSize: any = {width: null, height: null};
 
   constructor() {
     this.drawTools = new DrawTools(2);
+
+    this.canvasSize.width = window.innerWidth - 145;
+    this.canvasSize.height = window.innerHeight - 42;
   }
 
   getPicture(): Observable < Text | null > {
@@ -44,6 +48,14 @@ export class SvgLayoutService {
     this.currentDrawToolSelected.next();
   }
 
+  subsDrawEventsStatus(): Observable<boolean> {
+    return this.drawEventsStatus.asObservable();
+  }
+
+  sendDrawEventsStatus(status: boolean): void {
+    this.drawEventsStatus.next(status);
+  }
+
   getCanvasSize() {
     return this.canvasSize;
   }
@@ -55,6 +67,21 @@ export class SvgLayoutService {
 
   getDrawingElements(): {} {
     return {drawingElements: this.drawingElements, drawingStorageElements: this.drawingStorageElements};
+  }
+
+  draggableDrawingElements(draggable: boolean): this {
+    if (draggable) {
+      this.drawingElements.forEach((elem) => {
+        elem.draggable().on('dragend.namespace', (e) => {}).style({'cursor': 'pointer'});
+      });
+      this.sendDrawEventsStatus(true);
+    } else {
+      this.drawingElements.forEach((elem) => {
+        elem.draggable(false).off('dragend.namespace').style({'cursor': 'default'});
+      });
+      this.sendDrawEventsStatus(false);
+    }
+    return this;
   }
 
   clearDrawingElements(): void {

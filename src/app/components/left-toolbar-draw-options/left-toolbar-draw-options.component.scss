@@ -16,6 +16,22 @@
   .left-toolbar-draw-options-color {
     padding-left: 2px;
     padding-top: 2px;
+
+    .left-toolbar-draw-options-color-select {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      grid-gap: 3px;
+      margin: 2px 4px 2px 2px;
+
+      input {
+        width: 100%;
+      }
+    }
+
+    .left-toolbar-draw-options-size-select {
+      @extend .left-toolbar-draw-options-color-select;
+      grid-template-columns: 1fr;
+    }
   }
 
   #draw-tool-example-element {

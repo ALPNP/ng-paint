@@ -8,7 +8,6 @@ declare const SVG:any;
   styleUrls: ['left-toolbar.component.scss']
 })
 export class LeftToolbarComponent implements OnInit {
-  strokeProps: any = {color: 'white', opacity: 1, width: 1};
   circleDrawToolLayout = null;
   rectDrawToolLayout = null;
 
@@ -21,23 +20,30 @@ export class LeftToolbarComponent implements OnInit {
 
   svgInit() {
     this.circleDrawToolLayout = SVG('circle-draw-tool')
-      .size(20, 20)
-      .circle(20)
-      .fill(this.sls.getDrawTools().getCurrentDrawToolColor())
-      .stroke(this.strokeProps);
+      .size(25, 25)
+      .circle(25)
+      .fill(this.sls.getDrawTools().getCurrentDrawToolColor());
 
     this.rectDrawToolLayout = SVG('rect-draw-tool')
-      .size(20, 20)
-      .rect(20, 20)
-      .fill(this.sls.getDrawTools().getCurrentDrawToolColor())
-      .stroke(this.strokeProps);
+      .size(25, 25)
+      .rect(25, 25)
+      .fill(this.sls.getDrawTools().getCurrentDrawToolColor());
   }
 
   selectDrawTool(e) {
     let drawToolId: number = parseInt(e.currentTarget.getAttribute('data-drawtoolid'));
     if (this.sls.getDrawTools().getCurrentDrawToolId() !== drawToolId) {
+
+      if ((this.sls.getDrawTools().getDrawTools()['3']['id'] === drawToolId)) {
+        this.sls.draggableDrawingElements(true);
+      }
+
       this.sls.getDrawTools().setCurrentDrawToolId(drawToolId);
       this.sls.sendCurrentDrawToolSelected();
+
+      if (this.sls.getDrawTools().getPreviousDrawToolId() === this.sls.getDrawTools().getDrawTools()['3']['id']) {
+        this.sls.draggableDrawingElements(false);
+      }
     }
   }
 
