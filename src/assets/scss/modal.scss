@@ -1,0 +1,55 @@
+@import "theme";
+
+.default-modal-wrapper {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  z-index: 12;
+  cursor: default;
+
+  .default-modal {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 12;
+
+    .default-modal-title {
+      margin: 5px 5px 5px 5px;
+      p {
+        padding: 0 0 3px 0;
+      }
+    }
+
+    .default-modal-content {
+      width: 300px;
+      height: 300px;
+    }
+
+    .default-modal-footer {
+      width: 300px;
+      height: 50px;
+    }
+  }
+
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background: $rainbowLinearGradient;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    background-size: 400%;
+    z-index: 11;
+    animation: animate $borderModalAnimate linear infinite;
+  }
+
+  &:after {
+    filter: blur(8px);
+  }
+}

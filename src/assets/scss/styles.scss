@@ -3,6 +3,9 @@
 @import 'theme.scss';
 @import 'inputs.scss';
 @import 'buttons.scss';
+@import 'text';
+@import "overlay";
+@import "modal";
 
 //reset styles
 html,
@@ -16,5 +19,14 @@ ol {
 
 // main styles
 body {
-  background-color: #eff1f1;
+  background-color: $bgColor;
+}
+
+.horizontal-separator {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 25px;
+  height: 2px;
+  width: 100%;
+  background: $rainbowLinearGradient;
 }
