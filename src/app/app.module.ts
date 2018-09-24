@@ -6,10 +6,12 @@ import {SvgLayoutComponent} from './components/svg-layout/svg-layout.component';
 import {LeftToolbarComponent} from './components/left-toolbar/left-toolbar.component';
 import {SvgLayoutService} from "./services/svg-layout/svg-layout.service";
 import {AngularFontAwesomeModule} from "angular-font-awesome";
-import { LeftToolbarDrawOptionsComponent } from './components/left-toolbar-draw-options/left-toolbar-draw-options.component';
+import {LeftToolbarDrawOptionsComponent} from './components/left-toolbar-draw-options/left-toolbar-draw-options.component';
 import {ColorPickerModule} from "ngx-color-picker";
 import {ImgSaverComponent} from './components/img-saver/img-saver.component';
 import {DomService} from "./services/dom/dom.service";
+import {ColorPaletteComponent} from './components/color-palette/color-palette.component';
+import {ByParamsComponent} from './components/by-params/by-params.component';
 
 @NgModule({
   declarations: [
@@ -18,10 +20,13 @@ import {DomService} from "./services/dom/dom.service";
     SvgLayoutComponent,
     LeftToolbarComponent,
     LeftToolbarDrawOptionsComponent,
-    ImgSaverComponent
+    ImgSaverComponent,
+    ColorPaletteComponent,
+    ByParamsComponent
   ],
   entryComponents: [
-    ImgSaverComponent
+    ImgSaverComponent,
+    ColorPaletteComponent
   ],
   imports: [
     BrowserModule,

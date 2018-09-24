@@ -16,14 +16,5 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 7px;
-
-    .left-toolbar-separator {
-      margin-top: 5px;
-      margin-bottom: 5px;
-      border-radius: 25px;
-      height: 2px;
-      width: 100%;
-      background: $rainbowLinearGradient;
-    }
   }
 }

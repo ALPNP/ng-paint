@@ -72,7 +72,7 @@ export class SvgLayoutService {
   draggableDrawingElements(draggable: boolean): this {
     if (draggable) {
       this.drawingElements.forEach((elem) => {
-        elem.draggable().on('dragend.namespace', (e) => {}).style({'cursor': 'pointer'});
+        elem.draggable().on('dragend.namespace', (e) => {}).style({'cursor': 'move'});
       });
       this.sendDrawEventsStatus(true);
     } else {

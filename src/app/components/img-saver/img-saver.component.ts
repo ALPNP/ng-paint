@@ -1,4 +1,5 @@
-import {Component, OnInit, Input, ElementRef, AfterViewInit} from '@angular/core';
+import {Component, OnInit, ElementRef, AfterViewInit} from '@angular/core';
+import {ByParamsComponent} from "../by-params/by-params.component";
 declare const canvg: any;
 declare const saveAs: any;
 
@@ -7,13 +8,12 @@ declare const saveAs: any;
   templateUrl: 'img-saver.component.html',
   styleUrls: ['img-saver.component.scss']
 })
-export class ImgSaverComponent implements OnInit, AfterViewInit {
-  @Input('params') params: any;
-
+export class ImgSaverComponent extends ByParamsComponent implements OnInit, AfterViewInit {
   canvas: HTMLCanvasElement;
   canvasSize: any;
 
   constructor(private el: ElementRef) {
+    super();
   }
 
   ngOnInit() {

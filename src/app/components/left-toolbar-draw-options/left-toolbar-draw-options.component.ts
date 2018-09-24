@@ -1,5 +1,7 @@
 import {Component, OnInit, ElementRef, AfterViewInit, Output, EventEmitter} from '@angular/core';
 import {SvgLayoutService} from "../../services/svg-layout/svg-layout.service";
+import {DomService} from "../../services/dom/dom.service";
+import {ColorPaletteComponent} from "../color-palette/color-palette.component";
 declare const SVG: any;
 
 @Component({
@@ -15,7 +17,7 @@ export class LeftToolbarDrawOptionsComponent implements OnInit, AfterViewInit {
   drawToolExampleElement: any = null;
   drawOptionsPanelVisible: boolean = true;
 
-  constructor(public sls: SvgLayoutService, private el: ElementRef) {
+  constructor(public sls: SvgLayoutService, private el: ElementRef, private domService: DomService) {
     this.selectedSize = this.sls.getDrawTools().getCurrentDrawToolPixels();
     this.selectedColor = this.sls.getDrawTools().getCurrentDrawToolColor();
   }
@@ -79,5 +81,9 @@ export class LeftToolbarDrawOptionsComponent implements OnInit, AfterViewInit {
         .fill(this.sls.getDrawTools().getCurrentDrawToolColor())
         .move((45 - this.selectedSize) / 2, (45 - this.selectedSize) / 2);
     }
+  }
+
+  openColorPalette(e) {
+    this.domService.appendComponentBySelector(ColorPaletteComponent, '.svg-layout-container');
   }
 }
