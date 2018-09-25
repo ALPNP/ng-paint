@@ -20,4 +20,8 @@ export class ColorPaletteComponent extends ByParamsComponent implements OnInit {
       this.ctx.destroy();
     }
   }
+
+  exit(e) {
+    this.ctx.destroy();
+  }
 }
